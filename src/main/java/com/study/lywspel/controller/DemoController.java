@@ -1,5 +1,6 @@
 package com.study.lywspel.controller;
 
+import com.study.lywspel.annotation.Authorize;
 import com.study.lywspel.param.DemoParam;
 import com.study.lywspel.param.Inventor;
 import org.springframework.expression.Expression;
@@ -77,12 +78,14 @@ public class DemoController {
     }
 
     @PostMapping(value = "/get/demo")
+    @Authorize(type = Authorize.Type.OWNER, eid = "#eid")
     public ResponseEntity getDemo(@RequestParam("eid") Long eid) {
         String eidStr = "企业id:".concat(eid.toString());
         return new ResponseEntity(eidStr, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/post/demo", method = RequestMethod.POST)
+    @Authorize(type = Authorize.Type.OWNER, eid = "#eid")
     public ResponseEntity<DemoParam> postDemo(@Validated @RequestBody DemoParam param) {
         String companyN = "企业id：+ " + param.getEid() + ",公司名称:".concat(param.getCompanyName());
         return new ResponseEntity(companyN, HttpStatus.OK);

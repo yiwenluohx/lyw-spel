@@ -59,6 +59,7 @@ public class WebLogAspect {
         this.printRequestLog(request, joinPoint);
     }
 
+
     @AfterReturning(returning = "response", pointcut = "cutWebLog()")
     public void doAfterReturning(Object response) {
         // 处理完请求，返回内容
