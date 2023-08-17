@@ -1,8 +1,10 @@
 package com.study.lywspel.controller;
 
 import com.study.lywspel.annotation.Authorize;
+import com.study.lywspel.annotation.SpelGetParm;
 import com.study.lywspel.param.DemoParam;
 import com.study.lywspel.param.Inventor;
+import com.study.lywspel.param.User;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -89,5 +91,11 @@ public class DemoController {
     public ResponseEntity<DemoParam> postDemo(@Validated @RequestBody DemoParam param) {
         String companyN = "企业id：+ " + param.getEid() + ",公司名称:".concat(param.getCompanyName());
         return new ResponseEntity(companyN, HttpStatus.OK);
+    }
+
+    @PostMapping("/param")
+    @SpelGetParm(param = "#user.name")
+    public ResponseEntity repeat(@RequestBody User user) {
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 }

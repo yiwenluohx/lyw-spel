@@ -45,7 +45,7 @@ public class WebLogAspect {
      * '@Pointcut("execution(* com.study.lywspel.*.*(..))")'
      * @Pointcut("execution(public * com.test.aaa..*.*(..))")
      */
-    @Pointcut("@annotation(com.study.lywspel.annotation.Authorize)")
+    @Pointcut("execution(* com.study.lywspel.controller.*.*(..))")
     public void cutWebLog() {
     }
 
@@ -146,7 +146,7 @@ public class WebLogAspect {
                 }
             } else if (args[i] instanceof ExtendedServletRequestDataBinder) {
                 //不返回任何值
-            }else {
+            } else {
                 paramMap.put(parameterNames[i], JSON.toJSONString(args[i]));
             }
         }
